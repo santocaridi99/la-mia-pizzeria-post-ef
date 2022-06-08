@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
     Layout = null;
 }
-@model la_mia_pizzeria_static.Models.listaPizze
+@model la_mia_pizzeria_static.Models.PizzeriaContext
 
 
 <!DOCTYPE html>
@@ -28,9 +28,9 @@
             <div class="title"><h1>Le nostre Pizze</h1></div>
             <ul>
                 @{
-                    if (Model.listaDiPizze != null)
+                    if (Model.Pizze != null)
                     {
-                        foreach (var p in Model.listaDiPizze)
+                        foreach (var p in Model.Pizze)
                         {
                             <li><a>@p.Nome</a></li>
                         }
@@ -48,9 +48,9 @@
         <div class="container d-flex flex-wrap">
             <div class="row">
                 @{
-                    if (Model.listaDiPizze != null)
+                    if (Model.Pizze != null)
                     {
-                        foreach (var p in Model.listaDiPizze)
+                        foreach (var p in Model.Pizze)
                         {
                             <div class="card">
                                 <img src="@p.sFoto" class="" alt="@p.Nome" />

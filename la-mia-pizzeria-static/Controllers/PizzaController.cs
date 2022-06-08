@@ -7,39 +7,50 @@ namespace la_mia_pizzeria_static.Controllers
     public class PizzaController : Controller
     {
         public static listaPizze pizze = null;
+        public static PizzeriaContext db = new PizzeriaContext();
 
         public IActionResult Index()
         {
-            if (pizze == null)
-            {
-                pizze = new listaPizze();
-                Pizza margherita = new Pizza(0, "Pizza Margherita", "pomodoro , mozzarella campana , basilico", "/img/pizza-margherita-2-6yehdnu31vrv1puavcja7g753ipcgihq8vyh1ifv5pw.jpg", 3);
-                Pizza capricciosa = new Pizza(1, "Pizza Capricciosa", "Che soddisfa ogni capriccio", "/img/salsicciaepatate.jpg", 4);
-                Pizza salsicciaPatate = new Pizza(2, "Pizza Salsiccia e Patate", "salsiccia , patate , mozzarella capana", "/img/salsicciaepatate.jpg", 5);
-                Pizza marinara = new Pizza(3, "Pizza Marinara", "Grande classico", "/img/marinara.jpg", 3);
-                Pizza quattroStagioni = new Pizza(4, "Pizza Quattro Stagioni", "La quattro Stagioni", "/img/Pizza_Quattro_Stagioni_transparent.png", 4);
-                pizze.listaDiPizze.Add(margherita);
-                pizze.listaDiPizze.Add(capricciosa);
-                pizze.listaDiPizze.Add(salsicciaPatate);
-                pizze.listaDiPizze.Add(marinara);
-                pizze.listaDiPizze.Add(quattroStagioni);
-            }
+            //if (pizze == null)
+            //{
+            //    pizze = new listaPizze();
+            //    Pizza margherita = new Pizza { Nome = "Pizza Margherita", Descrizione = "pomodoro , mozzarella campana , basilico", sFoto = "/img/pizza-margherita-2-6yehdnu31vrv1puavcja7g753ipcgihq8vyh1ifv5pw.jpg", Prezzo = 3 };
+            //    Pizza capricciosa = new Pizza { Nome = "Pizza Capricciosa", Descrizione = "Che soddisfa ogni capriccio", sFoto = "/img/salsicciaepatate.jpg", Prezzo = 4 };
+            //    Pizza salsicciaPatate = new Pizza { Nome = "Pizza Salsiccia e Patate", Descrizione = "salsiccia , patate , mozzarella capana", sFoto = "/img/salsicciaepatate.jpg", Prezzo = 5 };
+            //    Pizza marinara = new Pizza { Nome = "Pizza Marinara", Descrizione = "Grande classico", sFoto = "/img/marinara.jpg", Prezzo = 3 };
+            //    Pizza quattroStagioni = new Pizza { Nome = "Pizza Quattro Stagioni", Descrizione = "La quattro Stagioni", sFoto = "/img/Pizza_Quattro_Stagioni_transparent.png", Prezzo = 4 };
+            //    //pizze.listaDiPizze.Add(margherita);
+            //    //pizze.listaDiPizze.Add(capricciosa);
+            //    //pizze.listaDiPizze.Add(salsicciaPatate);
+            //    //pizze.listaDiPizze.Add(marinara);
+            //    //pizze.listaDiPizze.Add(quattroStagioni);
+            //    db.Add(margherita);
+            //    db.Add(capricciosa);
+            //    db.Add(salsicciaPatate);
+            //    db.Add(marinara);
+            //    db.Add(quattroStagioni);
+            //    db.SaveChanges();   
+                
 
+            //}
 
+            
 
-            return View(pizze);
+            //tramite db passo alla view il PizzaContext
+            return View(db);
         }
+        
 
         public IActionResult Show(int id)
         {
-            return View("Show", pizze.listaDiPizze[id]);
+            var dataId = db.Pizze.Where(i => i.Id == id).FirstOrDefault();
+            return View("Show",dataId);
         }
 
         public IActionResult PizzaForm()
         {
             Pizza NuovaPizza = new Pizza()
             {
-                Id = 1,
                 Nome = "",
                 Descrizione = "",
                 sFoto = "",
