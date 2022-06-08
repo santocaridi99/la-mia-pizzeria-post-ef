@@ -1,0 +1,85 @@
+﻿@using Microsoft.AspNetCore.Html;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+@{
+    string Nome = "Santo";
+    string Cognome = "Caridi";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - la_mia_pizzeria_static</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/la_mia_pizzeria_static.styles.css" asp-append-version="true" />
+</head>
+<body>
+  
+<header>
+    <h1>Pizzeria da Santo</h1>
+</header>
+    
+<div class="container-fluid d-flex">
+    <div class="flex sidebar">
+        <div class="title"><h1>Le nostre Pizze</h1></div>
+        <ul>
+            <li><a>Pizza Margherita</a></li>
+            <li><a>Pizza Capricciosa</a></li>
+             <li><a>Pizza Salsiccia e patate</a></li>
+            <li><a>Pizza marinara</a></li>
+            <li><a>Pizza  Quattro stagioni</a></li>
+
+        </ul>
+    </div>
+    <div class="container d-flex flex-wrap">
+    <div class="row">
+         <div class="card">
+            <img src="./img/pizza-margherita-2-6yehdnu31vrv1puavcja7g753ipcgihq8vyh1ifv5pw.jpg" class="" alt="pizza margherita" />
+            <h1 class="titolo">Pizza margherita</h1>
+            <p class="descrizione">pomodoro , mozzarella campana , basilico</p>
+            <p class="prezzo"> 3 euro</p>
+        </div>
+        <div class="card">
+            <img src="./img/Pizza_capricciosa.jpg" class="" alt="pizza capricciosa" />
+            <h1 class="titolo">Pizza Capricciosa</h1>
+            <p class="descrizione">Che soddisfa ogni capriccio</p>
+            <p class="prezzo"> 4 euro</p>
+        </div>
+        <div class="card">
+            <img src="./img/salsicciaepatate.jpg" class="" alt="salsiccia e patate" />
+            <h1 class="titolo">Pizza Salsiccia e patate</h1>
+            <p class="descrizione">salsiccia , patate , mozzarella capana</p>
+            <p class="prezzo"> 5 euro</p>
+        </div>
+        <div class="card">
+            <img src="./img/marinara.jpg" class="" alt="marinara" />
+            <h1 class="titolo">Marinara</h1>
+            <p class="descrizione">Grande classico</p>
+            <p class="prezzo"> 3 euro</p>
+        </div>
+         <div class="card">
+            <img src="./img/Pizza_Quattro_Stagioni_transparent.png" class="" alt="quattro stagioni" />
+            <h1 class="titolo">Quattro stagioni</h1>
+            <p class="descrizione">la Quattro - stagioni</p>
+            <p class="prezzo"> 4 euro</p>
+        </div>
+    </div>
+
+    </div>
+
+</div>
+</body>
+</html>
+
+
+
+
+

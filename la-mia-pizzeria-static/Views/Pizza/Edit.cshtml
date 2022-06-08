@@ -1,0 +1,59 @@
+﻿@{
+	Layout = null;
+}
+
+@using Microsoft.AspNetCore.Html;
+
+
+@model la_mia_pizzeria_static.Models.Pizza;
+
+@using (Html.BeginForm("ModificaPizza", "Pizza", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table cellpadding="0" cellspacing="0" class="center">
+        @Html.ValidationSummary()
+        <tr>
+            <th colspan="2" align="center">Nuova Pizza</th>
+        </tr>
+        <tr>
+            <td>Id: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Id)
+            </td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Nome)
+                @Html.ValidationMessage("Nome")
+            </td>
+        </tr>
+        <tr>
+            <td>Descrizione: </td>
+            <td>
+                 @Html.TextBoxFor(m => m.Descrizione)
+                 @Html.ValidationMessage("Descrizione")
+            </td>
+        </tr>
+
+        <tr>
+            <td>Photo: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Foto,new {type="file"})
+                 @Html.ValidationMessage("Foto")
+            </td>
+        </tr>
+         <tr>
+            <td>Prezzo: </td>
+            <td>
+                @Html.TextBoxFor(m => m.Prezzo,new {type="number"})
+                 @Html.ValidationMessage("Prezzo")
+            </td>
+        </tr>
+
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+}

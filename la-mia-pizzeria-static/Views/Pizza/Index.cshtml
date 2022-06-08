@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNetCore.Html;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+@model la_mia_pizzeria_static.Models.listaPizze
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - la_mia_pizzeria_static</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/la_mia_pizzeria_static.styles.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header>
+        <h1>Pizzeria da Santo</h1>
+    </header>
+
+    <div class="container-fluid d-flex">
+        <div class="flex sidebar">
+            <div class="title"><h1>Le nostre Pizze</h1></div>
+            <ul>
+                @{
+                    if (Model.listaDiPizze != null)
+                    {
+                        foreach (var p in Model.listaDiPizze)
+                        {
+                            <li><a>@p.Nome</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <h1>Non ci sono pizze nella nostra applicazione</h1>
+                    }
+
+
+                }
+            </ul>
+            <div><h4>@Html.ActionLink("Aggiungi una nuova pizza","PizzaForm","Pizza")</h4></div>
+        </div>
+        <div class="container d-flex flex-wrap">
+            <div class="row">
+                @{
+                    if (Model.listaDiPizze != null)
+                    {
+                        foreach (var p in Model.listaDiPizze)
+                        {
+                            <div class="card">
+                                <img src="@p.sFoto" class="" alt="@p.Nome" />
+                                <h1 class="titolo">@p.Nome</h1>
+                                <p class="descrizione">@p.Descrizione</p>
+                                <p class="prezzo"> @p.Prezzo euro</p>
+                                <button class=""><a href="@Url.Action("Show","Pizza",new {@p.Id})">Scopri</a></button>
+                            </div>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <h1>Non ci sono pizze nella nostra applicazione</h1>
+                    }
+
+                }
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
+
