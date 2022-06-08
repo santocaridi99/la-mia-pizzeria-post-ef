@@ -96,7 +96,9 @@ namespace la_mia_pizzeria_static.Controllers
                 Prezzo = DatiPizza.Prezzo,
             };
 
-            pizze.listaDiPizze.Add(nuovaPizza);
+            //pizze.listaDiPizze.Add(nuovaPizza);
+            db.Add(nuovaPizza);
+            db.SaveChanges();
             return View(nuovaPizza);
         }
 
@@ -105,17 +107,17 @@ namespace la_mia_pizzeria_static.Controllers
         {
 
 
-
-            return View("Edit", pizze.listaDiPizze[id]);
+            var dataId = db.Pizze.Where(i => i.Id == id).FirstOrDefault();
+            return View("Edit", dataId);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ModificaPizza(Pizza DatiPizza)
+        public IActionResult ModificaPizza(Pizza ModificataPizza)
         {
             if (!ModelState.IsValid)
             {
-                return View("PizzaForm", DatiPizza);
+                return View("PizzaForm", ModificataPizza);
             }
 
             //Da qui estraggo il file e me lo salvo su file system.
@@ -129,35 +131,27 @@ namespace la_mia_pizzeria_static.Controllers
             }
             //get file extension
 
-            FileInfo fileInfo = new FileInfo(DatiPizza.Foto.FileName);
-            string fileName = DatiPizza.Nome + fileInfo.Extension;
+            FileInfo fileInfo = new FileInfo(ModificataPizza.Foto.FileName);
+            string fileName = ModificataPizza.Nome + fileInfo.Extension;
             string fileNameWithPath = Path.Combine(path, fileName);
             using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
             {
-                DatiPizza.Foto.CopyTo(stream);
+                ModificataPizza.Foto.CopyTo(stream);
             }
 
 
+            
+                var aggiornaPizza = db.Pizze
+                         .Where(pizza => pizza.Id == ModificataPizza.Id).FirstOrDefault();
+                aggiornaPizza.Nome =  ModificataPizza.Nome;
+                aggiornaPizza.Descrizione = ModificataPizza.Descrizione;
+                aggiornaPizza.sFoto = "/File/" + fileName;
+                aggiornaPizza.Prezzo = ModificataPizza.Prezzo;
+                db.Pizze.UpdateRange(aggiornaPizza);
+                db.SaveChanges();
 
-            Pizza updatePizza = pizze.listaDiPizze.Find(x => x.Id == DatiPizza.Id);
-
-            updatePizza.Nome = DatiPizza.Nome;
-            updatePizza.Descrizione = DatiPizza.Descrizione;
-            if (updatePizza.Foto != DatiPizza.Foto)
-            {
-                updatePizza.Foto = DatiPizza.Foto;
-                updatePizza.sFoto = "/File/" + fileName;
-
-
-            }
-            else
-            {
-                updatePizza.Foto = DatiPizza.Foto;
-                updatePizza.sFoto = DatiPizza.sFoto;
-            }
-
-            updatePizza.Prezzo = DatiPizza.Prezzo;
-
+            
+               
 
 
             return RedirectToAction("Index");
@@ -168,8 +162,9 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Delete(int id)
         {
 
-            Pizza pizzaRemove = pizze.listaDiPizze.Find(x => x.Id ==id);
-            pizze.listaDiPizze.Remove(pizzaRemove);
+            var dataId = db.Pizze.Where(i => i.Id == id).FirstOrDefault();
+            db.Pizze.Remove(dataId);
+            db.SaveChanges();
             return RedirectToAction("Index");
 
 

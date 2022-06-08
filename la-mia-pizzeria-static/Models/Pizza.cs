@@ -8,7 +8,6 @@ namespace la_mia_pizzeria_static.Models
     [Table("pizza")]
     public class Pizza
     {
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
         [Key]
         public int Id { get; set; }
 
